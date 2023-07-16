@@ -1,4 +1,4 @@
-@props(['currentDate'])
+@props(['currentDate', 'events'])
 <div class="h-full w-full flex flex-col items-start justify-start">
     <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
     <div class="grid grid-cols-7 h-fit w-full">
@@ -10,7 +10,7 @@
         <div class="grid grid-cols-7 border border-collapse h-full w-full auto-cols-fr grid-flow-row">
             @foreach($period->matrix() as $week)
                 @foreach($week as $date)
-                    <x-period.month.day :date="$date" :current="$currentDate" />
+                    <x-period.month.day :date="$date" :current="$currentDate" :events="$events->where('start_at', $date)" />
                 @endforeach
             @endforeach
         </div>

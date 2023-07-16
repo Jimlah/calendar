@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('name')->index();
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
+            $table->boolean('is_all_day');
             $table->timestamps();
         });
     }

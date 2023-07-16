@@ -25,7 +25,7 @@
                     <div>search</div>
                 </div>
                 <div class="h-full w-full flex items-start justify-start overflow-y-auto">
-                    <x-period.month :currentDate="$currentDate" />
+                    <x-period.month :currentDate="$currentDate" :events="$events" />
                 </div>
             </div>
         </div>

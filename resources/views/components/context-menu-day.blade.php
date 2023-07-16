@@ -1,11 +1,8 @@
-<div class="bg-white rounded z-[999] shadow-md text-sm border border-opacity-50 p-1 " x-contextmenu:contextmenu.day>
+<x-drop-down-menu x-contextmenu:contextmenu.day>
     <!-- An unexamined life is not worth living. - Socrates -->
-    <ul class="w-fit text-sm">
-        <li>
-            <a href="" x-on:click.prevent="$wire.create()" class="hover:bg-gray-100 py-0.5 px-2 w-full inline-block rounded">New Event</a>
-        </li>
-        <li>
-            <a href="" x-on:click.prevent="$wire.paste()" class="hover:bg-gray-100 py-0.5 px-2 w-full inline-block rounded">Paste Event</a>
-        </li>
-    </ul>
-</div>
+        <x-drop-down-link x-on:click.prevent="$wire.create(props)">New Event</x-drop-down-link>
+        <x-drop-down-link x-on:click.prevent="$wire.paste(props)" x-bind:data-disabled="!$wire.copiedEventId">
+            Paste Event
+        </x-drop-down-link>
+
+</x-drop-down-menu>

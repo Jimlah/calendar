@@ -1,8 +1,8 @@
 export default function (Alpine) {
-    Alpine.directive('contextmenu', (el, directive) => {
+    Alpine.directive('contextmenu', (el, directive, {evaluate}) => {
         if(!directive.value)handleRoot(el, Alpine, directive)
-        else if(directive.value==='trigger') handleTrigger(el, Alpine, directive)
-        else if(directive.value==='contextmenu') handleContextMenu(el, Alpine, directive)
+        else if(directive.value==='trigger') handleTrigger(el, Alpine, directive, evaluate)
+        else if(directive.value==='contextmenu') handleContextMenu(el, Alpine, directive, evaluate)
 
     }).before('bind');
 }
@@ -36,16 +36,19 @@ const handleRoot = (el, Alpine, directive) => {
         }
     }))
 }
-const handleTrigger = (el, Alpine, directive) => {
+const handleTrigger = (el, Alpine, directive, evaluate) => {
     Alpine.bind(el, ()=>({
         ['x-init'](){
         },
         ['x-on:contextmenu.self.prevent'](){
             this.$data.__calculateContextMenuPosition(this.$event,directive.modifiers[0]);
+            Object.keys(this.$data.__contextMenu).forEach(v=>{
+                Alpine.$data(this.$data.__contextMenu[v]).__isContextMenuOpen = false;
+            });
             Alpine.$data(this.$data.__contextMenu[directive.modifiers[0]]).__isContextMenuOpen = true;
+            Alpine.$data(this.$data.__contextMenu[directive.modifiers[0]]).props = evaluate(directive.expression);
         },
         ['x-on:dblclick.prevent'](){
-            this.$wire.create()
         }
     }))
 }
@@ -53,7 +56,9 @@ const handleContextMenu = (el, Alpine, directive) => {
     Alpine.bind(el, ()=>({
         ['x-data'](){
           return {
-              __isContextMenuOpen: false
+              __isContextMenuOpen: false,
+              props: {}
+
           }
         },
         ['x-init'](){
@@ -64,6 +69,9 @@ const handleContextMenu = (el, Alpine, directive) => {
             return this.__isContextMenuOpen;
         },
         ['x-on:click.outside'](){
+            this.__isContextMenuOpen = false;
+        },
+        ['x-on:click.prevent'](){
             this.__isContextMenuOpen = false;
         },
         ['x-bind:style'](){
