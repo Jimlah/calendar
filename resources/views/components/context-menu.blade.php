@@ -1,4 +1,4 @@
-<x-drop-down-menu x-contextmenu:contextmenu.event>
+<x-drop-down-menu class="fixed" x-contextmenu:contextmenu.event>
     <!-- An unexamined life is not worth living. - Socrates -->
             <x-drop-down-link x-on:click.prevent="$wire.create(props); __isopen=false">Get info</x-drop-down-link>
             <x-drop-down-sub-menu>
