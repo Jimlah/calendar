@@ -36,6 +36,7 @@ class EditEvent extends Component
     public function close(): void
     {
         $this->event = new Event();
+        $this->emitUp('calendar-root-refresh');
     }
 
     public function edit($id): void

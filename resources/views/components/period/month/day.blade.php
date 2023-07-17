@@ -1,5 +1,5 @@
 @props(['events'])
-<button class="h-full focus:outline-none text-center w-full border border-collapse relative flex items-start justify-start overflow-hidden"
+<button class="h-full focus:outline-none text-center w-full bg-white relative flex items-start justify-start overflow-hidden"
         x-contextmenu:trigger.day="'{{$date}}'"
 >
     <!-- Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Marie Curie -->
