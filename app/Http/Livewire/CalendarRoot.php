@@ -22,6 +22,10 @@ class CalendarRoot extends Component
 
     public bool $isCut = false;
 
+    protected $listeners = [
+        'calendar-root-refresh' => '$refresh',
+    ];
+
     public function mount(): void
     {
         $this->currentDate = now();

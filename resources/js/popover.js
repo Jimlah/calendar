@@ -40,6 +40,7 @@ const handlePopover = (el, Alpine) => {
                 close(){
                     this.__isPopOverShow = false;
                     this.__visibility = 'hidden';
+                    this.$dispatch('onclose');
                 }
             }
         },

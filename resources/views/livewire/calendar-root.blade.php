@@ -31,6 +31,6 @@
         </div>
         <x-context-menu/>
         <x-context-menu-day />
-        <x-pop-over/>
+        <livewire:edit-event />
     </div>
 </div>
