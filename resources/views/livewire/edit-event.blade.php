@@ -1,4 +1,4 @@
-<x-pop-over ::listeners="['edit-event']" @onload="$wire.edit(props.id)" @onclose="$wire.submit(); $wire.close()">
+<x-pop-over ::listeners="['edit-event']" @onload="$wire.edit(props.id)" @onclose="$wire.submit(); $wire.close();" x-on:click="$nextTick(()=>{__trigger.control.checked=true})">
     {{-- Be like water. --}}
     <form class="text-xs flex flex-col items-start justify-start divide-y" wire:submit.prevent="submit">
         <div class="px-4 py-1 w-full">

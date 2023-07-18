@@ -47,6 +47,7 @@ const handleTrigger = (el, Alpine, directive, evaluate) => {
             });
             Alpine.$data(this.$data.__contextMenu[directive.modifiers[0]]).__isContextMenuOpen = true;
             Alpine.$data(this.$data.__contextMenu[directive.modifiers[0]]).props = evaluate(directive.expression);
+            this.$dispatch('contextmenu-triggered');
         },
         ['x-on:dblclick.prevent'](){
         }
@@ -76,6 +77,6 @@ const handleContextMenu = (el, Alpine, directive) => {
         },
         ['x-bind:style'](){
             return this.$data.__position;
-        }
+        },
     }))
 }

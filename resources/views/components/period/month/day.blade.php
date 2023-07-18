@@ -12,16 +12,9 @@
     >
         <span>{{$date->day}}</span>
     </span>
-    <div class="inline-flex items-start justify-start mt-6 flex-col h-fit space-y-0.5 w-full">
+    <div class="inline-flex items-start justify-start mt-6 flex-col h-fit space-y-0.5 w-full py-2" x-id="['event-input']">
         @foreach($events as $event)
-            <a href="#"
-               x-on:click="$dispatch('edit-event', {id:'{{$event->id}}'})"
-               class="text-xs inline-block bg-blue-400 px-2 whitespace-nowrap overflow-hidden w-full text-left py-0.5 rounded-full text-white"
-               x-contextmenu:trigger.event="'{{$event->id}}'"
-               @event-created-{{$event->id}}.window="$dispatch('edit-event', {id:'{{$event->id}}'})"
-            >
-                {{$event->name}}
-            </a>
+            <x-period.month.event :event="$event" />
         @endforeach
     </div>
 </button>
