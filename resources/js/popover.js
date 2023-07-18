@@ -13,9 +13,8 @@ const handlePopover = (el, Alpine) => {
         return {...acc, ['@'+curr+'.window'](){
             this.$data.props = this.$event.detail;
             this.$data.__trigger = this.$event.target;
-            // handleTrigger(el, this.$event.target);
-                this.$data.__isPopOverShow = true;
             this.$dispatch('onload');
+            this.$data.__isPopOverShow = true;
 
             }}
     },{})
@@ -33,9 +32,6 @@ const handlePopover = (el, Alpine) => {
                     left: 0
                 },
                 init(){
-                    this.$watch('__visibility', (v)=>{
-                        console.log(v);
-                    })
                 },
                 close(){
                     this.__isPopOverShow = false;

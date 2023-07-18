@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Actions\MonthPeriod;
 use App\Actions\Period;
 use App\Models\Event;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,6 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CalendarRoot extends Component
@@ -34,14 +36,15 @@ class CalendarRoot extends Component
     public function create($date): void
     {
         $date = CarbonImmutable::parse($date);
-        Event::factory()->create(['name' => 'New Event ' . $date->toString(), 'start_at' => $date, 'end_at' => $date->add(CarbonInterval::hour())]);
+        $event = Event::factory()->create(['name' => 'New Event ' . $date->toString(), 'start_at' => $date, 'end_at' => $date->add(CarbonInterval::hour())]);
+        $this->emit("event-created", ['id' => $event->id]);
     }
 
     public function paste($id): void
     {
         $eventTobeReplicated = Event::query()->find($this->copiedEventId);
         $event = $eventTobeReplicated->replicate();
-        $date = CarbonImmutable::parse($id) ?? Event::query()->find($id)->start_at;
+        $date = !Str::isUlid($id) ? CarbonImmutable::parse($id) : Event::query()->find($id)->start_at;
         $event->start_at = $date;
         $event->end_at = $date->add(CarbonInterval::hour());
         $event->save();
