@@ -11,7 +11,10 @@ class EditEvent extends Component
     public Event $event;
 
     protected $rules = [
-        'event.name' => 'required',
+        'event.name' => 'required|string',
+        'event.is_all_day' => 'required|boolean',
+        'event.start_at' => 'required|date',
+        'event.end_at' => 'required|date',
     ];
 
     public function mount(): void

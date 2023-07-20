@@ -40,7 +40,7 @@ const handleTrigger = (el, Alpine, directive, evaluate) => {
     Alpine.bind(el, ()=>({
         ['x-init'](){
         },
-        ['x-on:contextmenu.self.prevent'](){
+        ['x-on:contextmenu.prevent'](){
             this.$data.__calculateContextMenuPosition(this.$event,directive.modifiers[0]);
             Object.keys(this.$data.__contextMenu).forEach(v=>{
                 Alpine.$data(this.$data.__contextMenu[v]).__isContextMenuOpen = false;

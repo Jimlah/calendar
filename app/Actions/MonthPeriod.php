@@ -34,4 +34,14 @@ class MonthPeriod extends Period implements \App\Interfaces\HasMatrix
         }
         return $results;
     }
+
+    public function getStart(): CarbonImmutable
+    {
+        return $this->matrix()->first()->first();
+    }
+
+    public function getEnd(): CarbonImmutable
+    {
+        return $this->matrix()->last()->last();
+    }
 }

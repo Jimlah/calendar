@@ -1,7 +1,7 @@
 @props(['event'])
 <a href="#"
    x-on:click.prevent="$dispatch('edit-event', {id:'{{$event->id}}'})"
-   class="text-xs bg-blue-400 px-1 whitespace-nowrap overflow-hidden w-full text-left py-0.5 rounded text-white flex items-center justify-between space-x-1"
+   class="text-xs bg-blue-400 px-1 whitespace-nowrap overflow-hidden w-full select-none text-left py-0.5 rounded text-white flex items-center justify-between space-x-1"
    x-contextmenu:trigger.event="'{{$event->id}}'"
    @event-created-{{$event->id}}.window="$dispatch('edit-event', {id:'{{$event->id}}'})"
 >

@@ -17,10 +17,10 @@
                         <x-mdi-plus class="w-4 h-4" />
                     </div>
                     <div class="rounded-md border hover:bg-gray-200 overflow-hidden flex items-center justify-between w-fit">
-                        <x-period-button data-active="true">Day</x-period-button>
-                        <x-period-button >Week</x-period-button>
-                        <x-period-button >Month</x-period-button>
-                        <x-period-button >Day</x-period-button>
+                        <x-period-button data-active="{{$currentPeriod==='day'}}" wire:click="$set('currentPeriod','day')">Day</x-period-button>
+                        <x-period-button data-active="{{$currentPeriod==='week'}}" wire:click="$set('currentPeriod','week')">Week</x-period-button>
+                        <x-period-button data-active="{{$currentPeriod==='month'}}" wire:click="$set('currentPeriod','month')">Month</x-period-button>
+                        <x-period-button data-active="{{$currentPeriod==='year'}}" wire:click="$set('currentPeriod','year')">Yearly</x-period-button>
                     </div>
                     <div>search</div>
                 </div>

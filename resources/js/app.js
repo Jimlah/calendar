@@ -12,5 +12,20 @@ Alpine.plugin(Tab);
 Alpine.plugin(ContextMenu)
 Alpine.plugin(Popover);
 window.Alpine = Alpine;
+window.addEventListener('alpine:init', ()=>{
+    window.Alpine.directive('autosize', (el, _, {cleanup})=>{
+        const handler = () => {
+            el.style.height = 'auto';
+            el.style.height = el.scrollHeight + 'px'
+            console.log(el);
+        };
 
+        el.addEventListener('input', handler)
+
+        cleanup(()=>{
+            el.removeEventListener('input', handler)
+        })
+
+    })
+})
 window.Alpine.start();

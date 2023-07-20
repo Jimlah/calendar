@@ -2,8 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\DayPeriod;
 use App\Actions\MonthPeriod;
 use App\Actions\Period;
+use App\Actions\WeekPeriod;
+use App\Actions\YearPeriod;
+use App\Factories\PeriodFactory;
+use App\Interfaces\HasMatrix;
 use App\Models\Event;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -13,12 +18,17 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CalendarRoot extends Component
 {
     public string $currentDate;
+
+    protected PeriodFactory $period;
+
+    public string $currentPeriod;
 
     public string $copiedEventId;
 
@@ -28,10 +38,24 @@ class CalendarRoot extends Component
         'calendar-root-refresh' => '$refresh',
     ];
 
-    public function mount(): void
+    public function boot(PeriodFactory $period): void
     {
         $this->currentDate = now();
+        $this->period = $period;
+
     }
+
+    public function updatedCurrentPeriod(): void
+    {
+        $period = match ($this->currentPeriod) {
+            'day' => PeriodFactory::DAY_PERIOD,
+            'week' => PeriodFactory::WEEK_PERIOD,
+            'month' => PeriodFactory::MONTH_PERIOD,
+            'year' => PeriodFactory::YEAR_PERIOD,
+        };
+        $this->period->setPeriod($period);
+    }
+
 
     public function create($date): void
     {
@@ -84,9 +108,11 @@ class CalendarRoot extends Component
 
     public function render(): View
     {
-        $events = Event::query()->whereMonth('start_at', now()->month)
+        $events = Event::query()
+            ->whereBetween('start_at', [$this->period->make()->getStart(), $this->period->make()->getEnd()])
             ->when($this->isCut, fn (Builder $query)=>$query->whereNot('id', $this->copiedEventId))
             ->get();
+        $periods = $this->period->make()->matrix();
         return view('livewire.calendar-root', compact('events'));
     }
 }
