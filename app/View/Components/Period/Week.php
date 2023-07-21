@@ -2,22 +2,18 @@
 
 namespace App\View\Components\Period;
 
-use App\Actions\MonthPeriod;
-use App\Actions\Period;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Month extends Component
+class Week extends Component
 {
-    public array $daysInAWeek = [
-        'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
-    ];
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
+        //
     }
 
     /**
@@ -25,6 +21,6 @@ class Month extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.period.month');
+        return view('components.period.week');
     }
 }

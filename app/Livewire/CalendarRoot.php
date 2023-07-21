@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use function PHPUnit\Framework\matches;
 
 class CalendarRoot extends Component
 {
@@ -28,7 +29,7 @@ class CalendarRoot extends Component
 
     protected PeriodFactory $period;
 
-    public string $currentPeriod;
+    public string $currentPeriod = 'month';
 
     public string $copiedEventId;
 
@@ -42,17 +43,19 @@ class CalendarRoot extends Component
     {
         $this->currentDate = now();
         $this->period = $period;
-
+        $this->period->setPeriod(PeriodFactory::DAY_PERIOD);
+        $this->currentPeriod = 'day';
     }
 
     public function updatedCurrentPeriod(): void
     {
-        $period = match ($this->currentPeriod) {
+        $period = match($this->currentPeriod){
             'day' => PeriodFactory::DAY_PERIOD,
             'week' => PeriodFactory::WEEK_PERIOD,
             'month' => PeriodFactory::MONTH_PERIOD,
             'year' => PeriodFactory::YEAR_PERIOD,
         };
+
         $this->period->setPeriod($period);
     }
 
@@ -61,7 +64,7 @@ class CalendarRoot extends Component
     {
         $date = CarbonImmutable::parse($date);
         $event = Event::factory()->create(['name' => 'New Event ' . $date->toString(), 'start_at' => $date, 'end_at' => $date->add(CarbonInterval::hour())]);
-        $this->emit("event-created", ['id' => $event->id]);
+        $this->dispatch("event-created", ['id' => $event->id]);
     }
 
     public function paste($id): void
@@ -89,12 +92,12 @@ class CalendarRoot extends Component
 
     public function duplicate($id): void
     {
-        Event::query()->find($id)->replicate()->save();
+        Event::query()->find($id)?->replicate()->save();
     }
 
     public function delete($id): void
     {
-        Event::query()->find($id)->delete();
+        Event::query()->find($id)?->delete();
     }
 
     public function cut($id): void
@@ -108,11 +111,12 @@ class CalendarRoot extends Component
 
     public function render(): View
     {
+        $periodMake = $this->period->make();
         $events = Event::query()
-            ->whereBetween('start_at', [$this->period->make()->getStart(), $this->period->make()->getEnd()])
+            ->whereBetween('start_at', [$periodMake->getStart(), $periodMake->getEnd()])
             ->when($this->isCut, fn (Builder $query)=>$query->whereNot('id', $this->copiedEventId))
             ->get();
-        $periods = $this->period->make()->matrix();
-        return view('livewire.calendar-root', compact('events'));
+        $periods = $periodMake->matrix();
+        return view('livewire.calendar-root', compact('events', 'periods'));
     }
 }

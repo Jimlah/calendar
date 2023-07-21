@@ -9,8 +9,5 @@ export default defineConfig({
             refresh: false,
             valetTls: 'calendar.test',
         }),
-        livewire({  // <-- add livewire plugin
-            refresh: ['resources/css/app.css'],  // <-- will refresh css (tailwind ) as well
-        }),
     ],
 });

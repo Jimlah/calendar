@@ -7,6 +7,7 @@ use App\Actions\MonthPeriod;
 use App\Actions\WeekPeriod;
 use App\Actions\YearPeriod;
 use App\Interfaces\HasMatrix;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Carbon;
 
 class PeriodFactory
@@ -26,7 +27,7 @@ class PeriodFactory
 
     public function __construct()
     {
-        $this->currentDate = new \DateTimeImmutable();
+        $this->currentDate = CarbonImmutable::now();
         $this->defaultPeriod = self::MONTH_PERIOD;
     }
 
@@ -43,6 +44,11 @@ class PeriodFactory
     public function setPeriod(string $period): void
     {
         $this->defaultPeriod = $period;
+    }
+
+    public function isDefaultPeriod(string $period): bool
+    {
+        return $this->defaultPeriod === $period;
     }
 
     public function isCurrentPeriod(string $period): bool
