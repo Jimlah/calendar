@@ -43,8 +43,8 @@ class CalendarRoot extends Component
     {
         $this->currentDate = now();
         $this->period = $period;
-        $this->period->setPeriod(PeriodFactory::DAY_PERIOD);
-        $this->currentPeriod = 'day';
+        $this->period->setPeriod(PeriodFactory::YEAR_PERIOD);
+        $this->currentPeriod = 'year';
     }
 
     public function updatedCurrentPeriod(): void

@@ -10,7 +10,7 @@
         <div class="grid grid-cols-7 h-full w-full auto-cols-fr gap-0.5 grid-flow-row bg-gray-200">
             @foreach($periods as $week)
                 @foreach($week as $date)
-                    <x-period.month.day :date="$date" :current="$currentDate" :events="[]" />
+                    <x-period.month.day :date="$date" :currentDate="$currentDate" :events="[]" />
                 @endforeach
             @endforeach
         </div>
