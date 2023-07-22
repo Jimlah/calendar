@@ -48,8 +48,8 @@ class CalendarRoot extends Component
     {
         $this->currentDate = now();
         $this->period = $period;
-        $this->period->setPeriod(PeriodFactory::WEEK_PERIOD);
-        $this->currentPeriod = 'week';
+        $this->period->setPeriod(PeriodFactory::DAY_PERIOD);
+        $this->currentPeriod = 'day';
     }
 
     public function updatedCurrentPeriod(): void
@@ -111,8 +111,6 @@ class CalendarRoot extends Component
         $this->isCut = true;
 
     }
-
-
 
     public function render(): View
     {

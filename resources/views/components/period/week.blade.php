@@ -33,13 +33,13 @@
         </div>
     </div>
     <div class="w-full h-full flex-grow px-4 overflow-y-auto">
-        <div class="grid grid-rows-[repeat(24,_1fr)] grid-cols-[50px_repeat(7,_1fr)] w-full h-[200%] grid-flow-col gap-[1px] bg-[#4d4d4d]">
+        <div class="grid grid-rows-[repeat(24,_1fr)] grid-cols-[50px_repeat(7,_1fr)] w-full h-[200%] grid-flow-col gap-[1px] bg-[#4d4d4d] snap-y">
             @foreach($periods as $week)
                 @foreach($week as $date)
                     @if($loop->parent->iteration > 1)
                         <x-period.week.day :date="$date" :current="$currentDate" :events="[]" />
                     @else
-                        <div class="h-full focus:outline-none text-xs text-center w-full bg-[#1d1f20] data-[is-weekend=true]:bg-[#272829] relative flex items-start justify-start overflow-hidden">
+                        <div class="h-full focus:outline-none text-xs snap-start snap-always text-center w-full bg-[#1d1f20] data-[is-weekend=true]:bg-[#272829] relative flex items-start justify-start overflow-hidden">
                             {{ $date->format("g A") }}
                         </div>
                     @endif
