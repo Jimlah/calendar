@@ -16,8 +16,9 @@ class YearPeriod  extends Period implements \App\Interfaces\HasMatrix
         $start = CarbonImmutable::parse($this->date)->startOfYear();
         $end = CarbonImmutable::parse($this->date)->endOfYear();
 
-        return collect($start->toPeriod($end, CarbonInterval::month())->toArray())
+        $result =  collect($start->toPeriod($end, CarbonInterval::month())->toArray())
             ->map(fn(CarbonImmutable $date) => $this->normalize(collect($date->startOfMonth()->startOfWeek(CarbonInterface::SUNDAY)->toPeriod($date->endOfMonth()->endOfWeek(CarbonInterface::SATURDAY), CarbonInterval::day()))));
+        return  $result;
     }
 
     private function normalize(Collection $results): Collection

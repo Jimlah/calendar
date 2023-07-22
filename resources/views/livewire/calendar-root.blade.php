@@ -22,18 +22,18 @@
                         <x-period-button ::data-active="$wire.currentPeriod === 'month'" x-on:click="$wire.set('currentPeriod', 'month')" >Month</x-period-button>
                         <x-period-button ::data-active="$wire.currentPeriod === 'year'" x-on:click="$wire.set('currentPeriod', 'year')" >Year</x-period-button>
                     </div>
-                    <div>search</div>
+                    <div>{{ $currentPeriod }}</div>
                 </div>
                 <div class="flex items-center justify-between w-full px-10 py-2">
                     <div class="">
-                        <h2 class="text-4xl">{{ \Illuminate\Support\Carbon::parse($currentDate)->year }}</h2>
+                        <h2 class="text-4xl">{{ \Illuminate\Support\Carbon::parse($currentDate)->toFormattedDayDateString() }}</h2>
                     </div>
                     <div class="flex items-center justify-end text-xs space-x-0.5">
-                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded">
+                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded" wire:click="previous">
                             <x-mdi-chevron-left class="w-4 h-4" />
                         </button>
-                        <button class="py-1 px-3 flex items-center justify-center bg-[#555759] rounded">Today</button>
-                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded">
+                        <button class="py-1 px-3 flex items-center justify-center bg-[#555759] rounded" wire:click="today">Today</button>
+                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded" wire:click="next">
                             <x-mdi-chevron-right class="w-4 h-4" />
                         </button>
                     </div>

@@ -30,7 +30,7 @@ class MonthPeriod extends Period implements \App\Interfaces\HasMatrix
             $nextDay = $endOfWeek->add(CarbonInterval::day());
             $next7day =$endOfWeek->add(CarbonInterval::day(7));
             $week = $nextDay->toPeriod($next7day)->toArray();
-            $results->add($week);
+            $results->add(collect($week));
         }
         return $results;
     }

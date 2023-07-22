@@ -21,13 +21,12 @@ class PeriodFactory
     public const YEAR_PERIOD = YearPeriod::class;
 
 
-    public \DateTimeImmutable $currentDate;
+//    public \DateTimeImmutable $currentDate;
 
     public string $defaultPeriod;
 
-    public function __construct()
+    public function __construct(public $currentDate = new CarbonImmutable())
     {
-        $this->currentDate = CarbonImmutable::now();
         $this->defaultPeriod = self::MONTH_PERIOD;
     }
 
@@ -44,6 +43,11 @@ class PeriodFactory
     public function setPeriod(string $period): void
     {
         $this->defaultPeriod = $period;
+    }
+
+    public function setDate(CarbonImmutable $date): void
+    {
+        $this->currentDate = $date;
     }
 
     public function isDefaultPeriod(string $period): bool

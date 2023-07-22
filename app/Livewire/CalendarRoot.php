@@ -46,22 +46,34 @@ class CalendarRoot extends Component
 
     public function boot(PeriodFactory $period): void
     {
-        $this->currentDate = now();
         $this->period = $period;
-        $this->period->setPeriod(PeriodFactory::DAY_PERIOD);
-        $this->currentPeriod = 'day';
     }
 
-    public function updatedCurrentPeriod(): void
+    public function today(): void
     {
-        $period = match($this->currentPeriod){
-            'day' => PeriodFactory::DAY_PERIOD,
-            'week' => PeriodFactory::WEEK_PERIOD,
-            'month' => PeriodFactory::MONTH_PERIOD,
-            'year' => PeriodFactory::YEAR_PERIOD,
-        };
+        $this->currentDate = CarbonImmutable::create(now());
+    }
 
-        $this->period->setPeriod($period);
+    public function next(): void
+    {
+        $date = CarbonImmutable::create($this->currentDate);
+        $this->currentDate = match($this->currentPeriod){
+            'day' => $date->addDay(),
+            'week' => $date->addWeek(),
+            'year' => $date->addYear(),
+            'month' => $date->addMonth()
+        };
+    }
+
+    public function previous(): void
+    {
+        $date = CarbonImmutable::create($this->currentDate);
+        $this->currentDate = match($this->currentPeriod){
+            'day' => $date->subDay(),
+            'week' => $date->subWeek(),
+            'year' => $date->subYear(),
+            'month' => $date->subMonth()
+        };
     }
 
 
@@ -114,6 +126,7 @@ class CalendarRoot extends Component
 
     public function render(): View
     {
+        $this->reInitialize();
         $periodMake = $this->period->make();
         $events = Event::query()
             ->whereBetween('start_at', [$periodMake->getStart(), $periodMake->getEnd()])
@@ -121,5 +134,18 @@ class CalendarRoot extends Component
             ->get();
         $periods = $periodMake->matrix();
         return view('livewire.calendar-root', compact('events', 'periods'));
+    }
+
+    private function reInitialize(): void
+    {
+        $period = match($this->currentPeriod){
+            'day' => PeriodFactory::DAY_PERIOD,
+            'week' => PeriodFactory::WEEK_PERIOD,
+            'month' => PeriodFactory::MONTH_PERIOD,
+            'year' => PeriodFactory::YEAR_PERIOD,
+        };
+
+        $this->period->setDate(CarbonImmutable::parse($this->currentDate));
+        $this->period->setPeriod($period);
     }
 }

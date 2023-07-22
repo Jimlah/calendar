@@ -14,8 +14,8 @@ class WeekPeriod extends Period implements HasMatrix
 
     public function matrix(): Collection
     {
-        return collect(CarbonImmutable::now()->startOfWeek(CarbonInterface::SUNDAY)
-            ->toPeriod(CarbonImmutable::now()->endOfWeek(CarbonInterface::SATURDAY), CarbonInterval::day()))
+        return collect(CarbonImmutable::create($this->date)->startOfWeek(CarbonInterface::SUNDAY)
+            ->toPeriod(CarbonImmutable::create($this->date)->endOfWeek(CarbonInterface::SATURDAY), CarbonInterval::day()))
             ->map(fn(CarbonImmutable $date)=>
             collect($date->startOfDay()
                 ->toPeriod($date->endOfDay(), CarbonInterval::hour())
