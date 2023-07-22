@@ -6,17 +6,20 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class Day extends Component
 {
-    public CarbonImmutable $currentDate;
     /**
      * Create a new component instance.
      */
-    public function __construct(public CarbonImmutable $date, public string $current)
+    public function __construct(
+        public CarbonImmutable $currentDate,
+        public CarbonImmutable $date,
+        public Collection|array $events = new Collection()
+    )
     {
-        $this->currentDate = CarbonImmutable::parse($this->current);
     }
 
     /**

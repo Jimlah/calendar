@@ -39,12 +39,17 @@ class CalendarRoot extends Component
         'calendar-root-refresh' => '$refresh',
     ];
 
+    public function mount(): void
+    {
+        $this->currentDate = CarbonImmutable::now();
+    }
+
     public function boot(PeriodFactory $period): void
     {
         $this->currentDate = now();
         $this->period = $period;
-        $this->period->setPeriod(PeriodFactory::YEAR_PERIOD);
-        $this->currentPeriod = 'year';
+        $this->period->setPeriod(PeriodFactory::MONTH_PERIOD);
+        $this->currentPeriod = 'month';
     }
 
     public function updatedCurrentPeriod(): void

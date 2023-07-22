@@ -1,6 +1,9 @@
-@props(['events'])
-<button class="h-full focus:outline-none text-center w-full bg-white relative flex items-start justify-start overflow-hidden"
-        x-contextmenu:trigger.day="'{{$date}}'"
+@props(['events', 'currentDate', 'date'])
+<button class="h-full focus:outline-none text-center w-full bg-[#1d1f20] data-[is-weekend=true]:bg-[#272829] relative flex items-start justify-start overflow-hidden"
+        data-is-weekend="{{ $date->isWeekEnd() ? 'true' : 'false' }}"
+        x-contextmenu:trigger.day="'{{$date}}'
+
+        "
 >
     <!-- Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Marie Curie -->
     <span
