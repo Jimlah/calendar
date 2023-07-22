@@ -16,7 +16,7 @@
                         </div>
                         <x-mdi-plus class="w-4 h-4" />
                     </div>
-                    <div class="rounded-md dark:hover:bg-[#1f2122]/30 dark:bg-[#1f2122] dark:border-[#2a2c2d] border overflow-hidden flex items-center justify-between w-fit">
+                    <div class="rounded-md hover:bg-[#1f2122]/30 bg-[#1f2122] border-[#2a2c2d] border overflow-hidden flex items-center justify-between w-fit">
                         <x-period-button ::data-active="$wire.currentPeriod === 'day'" x-on:click="$wire.set('currentPeriod', 'day')">Day</x-period-button>
                         <x-period-button ::data-active="$wire.currentPeriod === 'week'" x-on:click="$wire.set('currentPeriod', 'week')" >Week</x-period-button>
                         <x-period-button ::data-active="$wire.currentPeriod === 'month'" x-on:click="$wire.set('currentPeriod', 'month')" >Month</x-period-button>
@@ -29,11 +29,11 @@
                         <h2 class="text-4xl">{{ \Illuminate\Support\Carbon::parse($currentDate)->year }}</h2>
                     </div>
                     <div class="flex items-center justify-end text-xs space-x-0.5">
-                        <button class="p-1 flex items-center justify-center dark:bg-[#555759] rounded">
+                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded">
                             <x-mdi-chevron-left class="w-4 h-4" />
                         </button>
-                        <button class="py-1 px-3 flex items-center justify-center dark:bg-[#555759] rounded">Today</button>
-                        <button class="p-1 flex items-center justify-center dark:bg-[#555759] rounded">
+                        <button class="py-1 px-3 flex items-center justify-center bg-[#555759] rounded">Today</button>
+                        <button class="p-1 flex items-center justify-center bg-[#555759] rounded">
                             <x-mdi-chevron-right class="w-4 h-4" />
                         </button>
                     </div>

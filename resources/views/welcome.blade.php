@@ -10,7 +10,7 @@
             [x-cloak] { display: none !important; }
         </style>
     </head>
-    <body class="antialiased dark:bg-[#1d1f20] dark:text-white" x-data x-dark>
+    <body class="antialiased bg-[#1d1f20] text-white" x-data x-dark>
     <livewire:calendar-root />
     @livewireScriptConfig
     </body>

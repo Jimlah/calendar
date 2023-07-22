@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="w-full px-4 flex-none">
-        <div class="grid border-y border-[#4d4d4d] grid-cols-[50px_repeat(7,_1fr)] w-full gap-[1px] dark:bg-[#4d4d4d]">
+        <div class="grid border-y border-[#4d4d4d] grid-cols-[50px_repeat(7,_1fr)] w-full gap-[1px] bg-[#4d4d4d]">
             @foreach($periods as $period)
                 <div class="bg-[#1d1f20]">
                     @if($loop->first)
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="w-full h-full flex-grow px-4 overflow-y-auto">
-        <div class="grid grid-rows-[repeat(24,_1fr)] grid-cols-[50px_repeat(7,_1fr)] w-full h-[200%] grid-flow-col gap-[1px] dark:bg-[#4d4d4d]">
+        <div class="grid grid-rows-[repeat(24,_1fr)] grid-cols-[50px_repeat(7,_1fr)] w-full h-[200%] grid-flow-col gap-[1px] bg-[#4d4d4d]">
             @foreach($periods as $week)
                 @foreach($week as $date)
                     @if($loop->parent->iteration > 1)

@@ -7,7 +7,7 @@
         @endforeach
     </div>
     <div class="flex items-center justify-center w-full h-full">
-        <div class="grid grid-cols-7 h-full w-full auto-cols-fr gap-[1px] grid-flow-row dark:bg-[#4d4d4d]">
+        <div class="grid grid-cols-7 h-full w-full auto-cols-fr gap-[1px] grid-flow-row bg-[#4d4d4d]">
             @foreach($periods as $week)
                 @foreach($week as $date)
                     <x-period.month.day :date="$date" :currentDate="$currentDate" :events="[]" />
