@@ -20,7 +20,7 @@
                         <x-period-button ::data-active="$wire.currentPeriod === 'day'" x-on:click="$wire.set('currentPeriod', 'day')">Day</x-period-button>
                         <x-period-button ::data-active="$wire.currentPeriod === 'week'" x-on:click="$wire.set('currentPeriod', 'week')" >Week</x-period-button>
                         <x-period-button ::data-active="$wire.currentPeriod === 'month'" x-on:click="$wire.set('currentPeriod', 'month')" >Month</x-period-button>
-                        <x-period-button ::data-active="$wire.currentPeriod === 'year'" x-on:click="$wire.set('currentPeriod', 'year')" >Yearly</x-period-button>
+                        <x-period-button ::data-active="$wire.currentPeriod === 'year'" x-on:click="$wire.set('currentPeriod', 'year')" >Year</x-period-button>
                     </div>
                     <div>search</div>
                 </div>
